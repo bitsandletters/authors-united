@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+export type Props = {
+  author: CollectionEntry<"authors">;
+};
+
+const { author } = Astro.props as Props;
+---
+
+<div>
+  <h3>{author.data.name}</h3>
+</div>
