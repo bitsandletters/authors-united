@@ -9,40 +9,80 @@ export type Props = {
 
 const { book } = Astro.props as Props;
 
-const { title, author: _author, url } = book.data;
+const { title, author: _author, url, color = "#ccc" } = book.data;
 const bookNumber = Number(book.slug.split("-")[0]);
 const author = await getEntry("authors", _author.slug);
 ---
 
-<div class="*:max-w-[280px]" data-book={book.slug} data-author={author.slug}>
+<div
+  class="*:max-w-[350px]"
+  data-book={book.slug}
+  data-author={author.slug}
+  style={`--book-color: ${color}`}>
   <div
-    class="text-[2.25rem]/none text-white rounded-full bg-black inline-flex items-center justify-center w-[1.65em] h-[1.65em] font-serif absolute top-0 -left-4"
-  >
-    {bookNumber}
+    class="book-number text-[2rem]/none text-white rounded-full bg-black inline-flex items-center justify-center w-[1.75em] h-[1.75em]">
+    <span class="font-serif font-semibold tracking-tighter text-center -ml-px"
+      >{bookNumber}</span
+    >
   </div>
   <AuthorCard author={author} />
   <h3
-    class="[font-family:Big_Shoulders_Display] text-4xl/none text-balance uppercase font-semibold self-start pr-6 border-t border-b pt-2 pb-1 border-current"
-  >
+    class="[font-family:Big_Shoulders_Display] text-4xl/none text-balance uppercase font-semibold self-start pr-6 border-t border-b pt-2 pb-1 border-current tracking-[-0.5px] [word-spacing:-2px]">
     {title}
   </h3>
   {
     url && (
       <a
         href={url}
-        class="text-sm font-mono text-zinc-500 tracking-tight pt-2 truncate"
-      >
+        class="text-sm font-mono text-zinc-500 tracking-tight pt-2 truncate">
         {new URL(url).hostname}
       </a>
     )
   }
 </div>
 <style>
+  :root {
+    --shadow-color: 0deg 0% 0%;
+    --shadow-elevation-low: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.27),
+      1.1px 2.1px 2.2px -3.8px hsl(var(--shadow-color) / 0.18);
+    --shadow-elevation-medium: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.37),
+      5.3px 10.7px 11.1px -3.8px hsl(var(--shadow-color) / 0.25);
+    --shadow-elevation-high: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.35),
+      2.4px 4.8px 5px -1.3px hsl(var(--shadow-color) / 0.29),
+      9.7px 19.3px 20.1px -2.5px hsl(var(--shadow-color) / 0.23),
+      28.3px 56.5px 58.8px -3.8px hsl(var(--shadow-color) / 0.17);
+  }
+
   [data-book] {
-    @apply bg-white p-4 pl-16 rounded-sm relative;
+    container-name: book;
+    container-type: inline-size;
+    --book-color: var(--book-color, #ccc);
+    @apply bg-white pl-16 rounded-sm relative;
+
+    border-top: 1.5rem solid var(--book-color);
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--book-color) 15%, transparent),
+      transparent 45%
+    );
+    border-radius: 0.25rem;
+    box-shadow: var(--shadow-elevation-medium);
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 2rem 1fr auto;
+    grid-template-rows: 2rem minmax(6rem, 1fr) auto;
     min-height: 10em;
+    padding-inline-start: 3rem;
+    padding-inline-end: 2rem;
+    padding-block: 1.5rem;
+
+    h3 {
+      font-size: clamp(2.5rem, 10cqi, 3.25rem);
+    }
+
+    .book-number {
+      position: absolute;
+      top: -1.75rem;
+      left: -1rem;
+    }
   }
 </style>
