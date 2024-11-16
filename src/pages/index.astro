@@ -27,9 +27,26 @@ const books = await getCollection("books");
         Authors United
       </h1>
     </header>
+
     <div
-      class="px-8 py-8 my-12 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-      {books.map((book) => <BookCard book={book} />)}
+      class="px-8 py-8 grid grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[1fr_2fr] gap-12">
+      <div class="font-serif *:max-w-prose flex flex-col gap-4 pr-12">
+        <p>
+          In 2024, A Book Apart closed its doors after publishing a much-loved
+          collection of more than 50 brief books for people who make websites.
+          The rights have reverted to the authors — hi, that's us — and many of
+          us have self-published new editions of their books, put the originals
+          up to read online or download for free, or both.
+        </p>
+        <p>
+          Here you'll find a list of all our books, with links to where you can
+          read or download them, or get information on where to buy the new
+          editions. As more titles are republished, we'll add them to the list.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2">
+        {books.map((book) => <BookCard book={book} />)}
+      </div>
     </div>
     <footer class="px-8 py-12 text-zinc-500 flex gap-8 justify-end">
       <p>
