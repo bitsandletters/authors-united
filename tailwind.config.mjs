@@ -5,6 +5,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Geist', 'sans-serif'],
+				mono: [`'Geist Mono'`, 'monospace'],
 				serif: [`'Source Serif 4'`, 'serif'],
 				display: [`'Big Shoulders Display'`, 'sans-serif'],
 			},

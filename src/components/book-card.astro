@@ -14,26 +14,35 @@ const bookNumber = Number(book.slug.split("-")[0]);
 const author = await getEntry("authors", _author.slug);
 ---
 
-<div
-  class="flex flex-col gap-0 bg-white p-4 pl-16 rounded-sm relative"
-  data-author={author.slug}
->
+<div class="*:max-w-[280px]" data-book={book.slug} data-author={author.slug}>
   <div
     class="text-[2.25rem]/none text-white rounded-full bg-black inline-flex items-center justify-center w-[1.65em] h-[1.65em] font-serif absolute top-0 -left-4"
   >
     {bookNumber}
   </div>
+  <AuthorCard author={author} />
   <h3
-    class="[font-family:Big_Shoulders_Display] text-4xl/none text-balance uppercase font-semibold"
+    class="[font-family:Big_Shoulders_Display] text-4xl/none text-balance uppercase font-semibold self-start pr-6 border-t border-b pt-2 pb-1 border-current"
   >
     {title}
   </h3>
-  <AuthorCard author={author} />
   {
     url && (
-      <a href={url} class="text-sm text-zinc-500">
+      <a
+        href={url}
+        class="text-sm font-mono text-zinc-500 tracking-tight pt-2 truncate"
+      >
         {new URL(url).hostname}
       </a>
     )
   }
 </div>
+<style>
+  [data-book] {
+    @apply bg-white p-4 pl-16 rounded-sm relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2rem 1fr auto;
+    min-height: 10em;
+  }
+</style>
