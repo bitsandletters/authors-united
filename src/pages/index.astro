@@ -2,6 +2,9 @@
 import { getCollection } from "astro:content";
 import BookCard from "../components/book-card.astro";
 
+import logomark from "../images/authors-united-logomark.svg?raw";
+import icon from "../images/olive-starburst-icon@2x.png";
+
 const authors = await getCollection("authors");
 const books = await getCollection("books");
 ---
@@ -9,7 +12,7 @@ const books = await getCollection("books");
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href={icon.src} />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,7 +27,12 @@ const books = await getCollection("books");
     <header class="bg-white flex items-center px-8 py-4">
       <h1
         class="text-2xl/none uppercase tracking-wider py-4 font-serif font-semibold mt-12">
-        Authors United
+        <div
+          aria-hidden="true"
+          class="*:w-full *:h-auto max-w-sm h-auto"
+          set:html={logomark}
+        />
+        <span class="sr-only">Authors United</span>
       </h1>
     </header>
 
