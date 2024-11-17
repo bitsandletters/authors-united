@@ -1,4 +1,6 @@
 ---
+import _ from "lodash";
+import chroma from "chroma-js";
 import { getCollection } from "astro:content";
 import BookCard from "../components/book-card.astro";
 
@@ -7,6 +9,20 @@ import icon from "../images/olive-starburst-icon@2x.png";
 
 const authors = await getCollection("authors");
 const books = await getCollection("books");
+
+const arrayOfColors = books.map((book) => chroma(book.data.color));
+
+const sortedColors = _.sortBy(
+  arrayOfColors.map((color) => {
+    const [_lum, _chroma, hue] = color.oklch();
+    const newColor = chroma.oklch(0.88, 0.2, hue);
+    return newColor;
+  }),
+  (color) => {
+    const [_lum, _chroma, hue] = color.oklch();
+    return hue;
+  }
+).map((_) => _.hex());
 ---
 
 <html lang="en">
@@ -22,6 +38,35 @@ const books = await getCollection("books");
       rel="stylesheet"
     />
     <title>Authors United</title>
+    <style define:vars={{ colorVars: sortedColors }}>
+      :root {
+        --color-1: var(--color-vars);
+      }
+
+      header,
+      footer {
+        position: relative;
+      }
+
+      header:before,
+      footer:after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        display: block;
+        height: 20px;
+        width: 100%;
+        background-image: linear-gradient(
+          to right,
+          var(--colorVars)
+        ) !important;
+      }
+
+      footer:after {
+        top: unset;
+        bottom: 0;
+      }
+    </style>
   </head>
   <body class="font-sans bg-zinc-200 text-zinc-900 antialiased">
     <header class="bg-white flex items-center px-8 py-4">
