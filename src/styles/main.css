@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+  --font-serif: "Source Serif 4", serif;
+  --font-display: "Big Shoulders Display", sans-serif;
+}
+
+@layer base {
+  :root {
+    --shadow-color: 0deg 0% 0%;
+    --shadow-elevation-low: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.27),
+      1.1px 2.1px 2.2px -3.8px hsl(var(--shadow-color) / 0.18);
+    --shadow-elevation-medium: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.37),
+      5.3px 10.7px 11.1px -3.8px hsl(var(--shadow-color) / 0.25);
+    --shadow-elevation-high: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.35),
+      2.4px 4.8px 5px -1.3px hsl(var(--shadow-color) / 0.29),
+      9.7px 19.3px 20.1px -2.5px hsl(var(--shadow-color) / 0.23),
+      28.3px 56.5px 58.8px -3.8px hsl(var(--shadow-color) / 0.17);
+  }
+}
+
+@layer components {
+  [data-book] {
+    container-name: book;
+    container-type: inline-size;
+    --book-color: var(--book-color, #ccc);
+    @apply bg-white pl-16 rounded-sm relative;
+
+    border-top: 1.5rem solid var(--book-color);
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--book-color) 15%, transparent),
+      transparent 45%
+    );
+    border-radius: 0.25rem;
+    box-shadow: var(--shadow-elevation-medium);
+    display: grid;
+    justify-items: start;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2rem minmax(6rem, 1fr) auto;
+    min-height: 10em;
+    padding-inline-start: 1.5rem;
+    padding-inline-end: 3rem;
+    padding-block: 1.5rem;
+
+    h3 {
+      font-size: clamp(2.5rem, 10cqi, 3.25rem);
+    }
+  }
+}

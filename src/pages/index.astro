@@ -1,4 +1,5 @@
 ---
+import "../styles/main.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import _ from "lodash";
@@ -51,10 +52,6 @@ const sortedColors = await getSpectrum();
     />
     <title>Authors Together</title>
     <style define:vars={{ colorVars: sortedColors }}>
-      :root {
-        --color-1: var(--color-vars);
-      }
-
       header,
       footer {
         position: relative;
@@ -96,20 +93,19 @@ const sortedColors = await getSpectrum();
         <span class="sr-only">Authors United</span>
       </h1>
     </header>
-
     <div
-      class="px-8 py-8 grid grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[2fr_340px] gap-8 sm:gap-12">
+      class="px-8 py-8 grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-8 sm:gap-12">
       <div
         x-data="{ open: false }"
-        class="font-serif *:max-w-prose lg:order-last">
+        class="font-serif *:max-w-prose xl:order-last">
         <h3
           @click="open = !open"
-          class="font-display uppercase text-2xl/none font-semibold tracking flex items-center gap-2 border border-zinc-400 p-4 rounded-lg md:p-0 md:border-none cursor-pointer md:cursor-default mb-4"
-          :class="open ? 'bg-zinc-50 md:bg-transparent' : ''">
+          class="font-display uppercase text-2xl/none font-semibold tracking flex items-center gap-2 border border-zinc-400 p-4 rounded-lg lg:p-0 lg:border-none cursor-pointer lg:cursor-default mb-4"
+          :class="open ? 'bg-zinc-50 lg:bg-transparent' : ''">
           About this site
           <span
             aria-hidden="true"
-            class="transition-transform duration-300 md:hidden"
+            class="transition-transform duration-300 lg:hidden"
             :class="open ? 'rotate-90' : 'rotate-0'"
             set:html={icon(faChevronRight, { classes: "text-zinc-400 fa-sm" })
               .html}
@@ -117,7 +113,7 @@ const sortedColors = await getSpectrum();
         </h3>
         <div
           class="flex flex-col gap-4"
-          :class="open ? 'flex px-4 md:px-0' : 'hidden md:flex'">
+          :class="open ? 'flex px-4 lg:px-0' : 'hidden lg:flex'">
           <p>
             In 2024, <a
               href="https://abookapart.com"
@@ -137,8 +133,14 @@ const sortedColors = await getSpectrum();
           </p>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2">
-        {books.map((book) => <BookCard book={book} />)}
+      <div class="@container">
+        <div class="flex flex-wrap gap-8">
+          {
+            books.map((book) => (
+              <BookCard book={book} class="min-w-[328px] flex-1" />
+            ))
+          }
+        </div>
       </div>
     </div>
     <footer

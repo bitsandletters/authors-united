@@ -3,12 +3,13 @@ import { twMerge } from "tailwind-merge";
 import { getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import AuthorCard from "./author-card.astro";
+import type { HTMLAttributes } from "astro/types";
 
-export type Props = {
+export type Props = HTMLAttributes<"div"> & {
   book: CollectionEntry<"books">;
 };
 
-const { book } = Astro.props as Props;
+const { book, class: className } = Astro.props as Props;
 
 const {
   title,
@@ -36,7 +37,7 @@ const numberClasses = twMerge(
 ---
 
 <div
-  class="*:max-w-[350px]"
+  class:list={twMerge("*:max-w-[350px]", className)}
   data-book={book.slug}
   data-author={author.slug}
   data-published={book.data.published.toISOString()}
@@ -56,7 +57,7 @@ const numberClasses = twMerge(
   <AuthorCard author={author} />
   <a href={url}>
     <h3
-      class="[font-family:Big_Shoulders_Display] text-4xl/none text-balance uppercase font-semibold self-start pr-6 border-t border-b pt-2 pb-1 border-current tracking-[-0.5px] [word-spacing:-2px] mb-3">
+      class="[font-family:Big_Shoulders_Display] text-4xl leading-none text-balance uppercase font-semibold self-start pr-6 border-t border-b pt-2 pb-1 border-current tracking-[-0.5px] [word-spacing:-2px] mb-3">
       {title}
     </h3>
   </a>
@@ -76,44 +77,3 @@ const numberClasses = twMerge(
     }
   </div>
 </div>
-<style>
-  :root {
-    --shadow-color: 0deg 0% 0%;
-    --shadow-elevation-low: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.27),
-      1.1px 2.1px 2.2px -3.8px hsl(var(--shadow-color) / 0.18);
-    --shadow-elevation-medium: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.37),
-      5.3px 10.7px 11.1px -3.8px hsl(var(--shadow-color) / 0.25);
-    --shadow-elevation-high: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.35),
-      2.4px 4.8px 5px -1.3px hsl(var(--shadow-color) / 0.29),
-      9.7px 19.3px 20.1px -2.5px hsl(var(--shadow-color) / 0.23),
-      28.3px 56.5px 58.8px -3.8px hsl(var(--shadow-color) / 0.17);
-  }
-
-  [data-book] {
-    container-name: book;
-    container-type: inline-size;
-    --book-color: var(--book-color, #ccc);
-    @apply bg-white pl-16 rounded-sm relative;
-
-    border-top: 1.5rem solid var(--book-color);
-    background-image: linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--book-color) 15%, transparent),
-      transparent 45%
-    );
-    border-radius: 0.25rem;
-    box-shadow: var(--shadow-elevation-medium);
-    display: grid;
-    justify-items: start;
-    grid-template-columns: 1fr;
-    grid-template-rows: 2rem minmax(6rem, 1fr) auto;
-    min-height: 10em;
-    padding-inline-start: 1.5rem;
-    padding-inline-end: 3rem;
-    padding-block: 1.5rem;
-
-    h3 {
-      font-size: clamp(2.5rem, 10cqi, 3.25rem);
-    }
-  }
-</style>
