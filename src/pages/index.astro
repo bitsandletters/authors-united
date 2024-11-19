@@ -2,31 +2,54 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import _ from "lodash";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import BookCard from "../components/book-card.astro";
+import { Head } from "astro-capo";
+import { icon } from "@fortawesome/fontawesome-svg-core";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 import logomark from "../images/authors-together-logomark.svg?raw";
-import icon from "../images/olive-starburst-icon@2x.png";
+import starIcon from "../images/olive-starburst-icon@2x.png";
+import bnlLogo from "../images/bnl-logo.svg?raw";
+import openGraphImage from "../images/authors-together-opengraph.png";
+
+const socialImageUrl = new URL(openGraphImage.src, Astro.url);
+
 import { getSpectrum } from "../lib/spectrum";
 
-const books = await getCollection("books");
+const books = (await getCollection("books")) as CollectionEntry<"books">[];
 
 const sortedColors = await getSpectrum();
 ---
 
 <html lang="en">
-  <head>
+  <Head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href={icon.src} />
-    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href={starIcon.src} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+
+    <link rel="canonical" href={Astro.url} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content="Authors Together" />
+    <meta property="og:site_name" content="Authors Together" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="A directory of books by the former authors of A Book Apart"
+    />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta
+      property="og:image:alt"
+      content="Logo for Authors Together, a directory of books for web creators"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
       rel="stylesheet"
     />
-    <title>Authors United</title>
+    <title>Authors Together</title>
     <style define:vars={{ colorVars: sortedColors }}>
       :root {
         --color-1: var(--color-vars);
@@ -60,14 +83,14 @@ const sortedColors = await getSpectrum();
     <script src="https://cdn.usefathom.com/script.js" data-site="WXBPBNOP" defer
     ></script>
     <!-- / Fathom -->
-  </head>
+  </Head>
   <body class="font-sans bg-zinc-200 text-zinc-900 antialiased">
     <header class="bg-white flex items-center px-8 py-4">
       <h1
         class="text-2xl/none uppercase tracking-wider py-4 font-serif font-semibold mt-12">
         <span
           aria-hidden="true"
-          class="*:w-full *:h-auto max-w-sm h-auto"
+          class="block *:w-full *:h-auto max-w-sm h-auto"
           set:html={logomark}
         />
         <span class="sr-only">Authors United</span>
@@ -75,37 +98,60 @@ const sortedColors = await getSpectrum();
     </header>
 
     <div
-      class="px-8 py-8 grid grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[1fr_2fr] gap-12">
-      <div class="font-serif *:max-w-prose flex flex-col gap-4 pr-12">
-        <h2 class="font-display uppercase text-2xl/none font-semibold tracking">
+      class="px-8 py-8 grid grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[2fr_340px] gap-8 sm:gap-12">
+      <div
+        x-data="{ open: false }"
+        class="font-serif *:max-w-prose lg:order-last">
+        <h3
+          @click="open = !open"
+          class="font-display uppercase text-2xl/none font-semibold tracking flex items-center gap-2 border border-zinc-400 p-4 rounded-lg md:p-0 md:border-none cursor-pointer md:cursor-default mb-4"
+          :class="open ? 'bg-zinc-50 sm:bg-transparent' : ''">
           About this site
-        </h2>
-        <p>
-          In 2024, A Book Apart closed its doors after publishing a much-loved
-          collection of more than 50 brief books for people who make websites.
-          The rights to each book have reverted to the authors — hi, that's us —
-          and we've put together this semi-official directory to help you find
-          our books in their new homes.
-        </p>
-        <p>
-          This site's source code is available on <a
-            href="https://github.com/bitsandletters/authors-united"
-            class="underline decoration-zinc-400 underline-offset-2">GitHub</a
-          >.
-        </p>
+          <span
+            aria-hidden="true"
+            class="transition-transform duration-300 sm:hidden"
+            :class="open ? 'rotate-90' : 'rotate-0'"
+            set:html={icon(faChevronRight, { classes: "text-zinc-400 fa-sm" })
+              .html}
+          />
+        </h3>
+        <div
+          class="flex flex-col gap-4"
+          :class="open ? 'flex px-4 sm:px-0' : 'hidden sm:flex'">
+          <p>
+            In 2024, <a
+              href="https://abookapart.com"
+              class="underline decoration-zinc-400 underline-offset-2"
+              >A Book Apart</a
+            > closed its doors after publishing a much-loved collection of more than
+            50 brief books for people who make websites. The rights to each book
+            have reverted to the authors — hi, that's us — and we've put together
+            this semi-official directory to help you find our books in their new
+            homes.
+          </p>
+          <p>
+            This site's source code is available on <a
+              href="https://github.com/bitsandletters/authors-united"
+              class="underline decoration-zinc-400 underline-offset-2">GitHub</a
+            >.
+          </p>
+        </div>
       </div>
       <div class="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2">
         {books.map((book) => <BookCard book={book} />)}
       </div>
     </div>
-    <footer class="px-8 py-12 text-zinc-500 flex gap-8 justify-end">
-      <p>
-        Site by <a
-          href="https://bitsandletters.co/?utm_source=authors-together&utm_medium=affiliate&utm_campaign=bnl"
-          class="underline decoration-zinc-400 underline-offset-2"
-          >Bits&amp;Letters</a
+    <footer
+      class="px-8 py-12 text-zinc-500 flex gap-8 justify-center sm:justify-start">
+      <a
+        href="https://bitsandletters.co/?utm_source=authors-together&utm_medium=affiliate&utm_campaign=bnl"
+        class="inline-flex items-center gap-2 group">
+        <span aria-hidden="true" set:html={bnlLogo} class="text-zinc-500" />
+        <span
+          class="group-hover:underline decoration-zinc-400 underline-offset-2"
+          >Site by <b class="font-medium">Bits&amp;Letters</b></span
         >
-      </p>
+      </a>
     </footer>
   </body>
 </html>
