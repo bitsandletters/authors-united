@@ -16,10 +16,15 @@ const authors = defineCollection({
 const books = defineCollection({
   type: 'content',
   schema: z.object({
+    collection: z.enum(['briefs', 'books']).default('books'),
+    number: z.number().optional(),
     title: z.string(),
     author: reference('authors'),
     url: z.string().url(),
     color: z.string().optional(),
+    isbn: z.string().optional(),
+    pages: z.number().optional(),
+    published: z.date().optional(),
   }),
 });
 
