@@ -24,7 +24,7 @@ const books = defineCollection({
     color: z.string().optional(),
     isbn: z.string().optional(),
     pages: z.number().optional(),
-    published: z.date().optional(),
+    published: z.date(),
   }),
 });
 

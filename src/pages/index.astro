@@ -1,4 +1,6 @@
 ---
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
 import _ from "lodash";
 import { getCollection } from "astro:content";
 import BookCard from "../components/book-card.astro";
@@ -8,6 +10,7 @@ import icon from "../images/olive-starburst-icon@2x.png";
 import { getSpectrum } from "../lib/spectrum";
 
 const books = await getCollection("books");
+
 const sortedColors = await getSpectrum();
 ---
 
