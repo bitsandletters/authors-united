@@ -105,11 +105,11 @@ const sortedColors = await getSpectrum();
         <h3
           @click="open = !open"
           class="font-display uppercase text-2xl/none font-semibold tracking flex items-center gap-2 border border-zinc-400 p-4 rounded-lg md:p-0 md:border-none cursor-pointer md:cursor-default mb-4"
-          :class="open ? 'bg-zinc-50 sm:bg-transparent' : ''">
+          :class="open ? 'bg-zinc-50 md:bg-transparent' : ''">
           About this site
           <span
             aria-hidden="true"
-            class="transition-transform duration-300 sm:hidden"
+            class="transition-transform duration-300 md:hidden"
             :class="open ? 'rotate-90' : 'rotate-0'"
             set:html={icon(faChevronRight, { classes: "text-zinc-400 fa-sm" })
               .html}
@@ -117,7 +117,7 @@ const sortedColors = await getSpectrum();
         </h3>
         <div
           class="flex flex-col gap-4"
-          :class="open ? 'flex px-4 sm:px-0' : 'hidden sm:flex'">
+          :class="open ? 'flex px-4 md:px-0' : 'hidden md:flex'">
           <p>
             In 2024, <a
               href="https://abookapart.com"
