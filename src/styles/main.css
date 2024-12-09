@@ -39,7 +39,7 @@
     display: grid;
     justify-items: start;
     grid-template-columns: 1fr;
-    grid-template-rows: 2rem minmax(6rem, 1fr) auto;
+    grid-template-rows: min-content minmax(6rem, 1fr) auto;
     min-height: 10em;
     padding-inline-start: 1.5rem;
     padding-inline-end: 3rem;
