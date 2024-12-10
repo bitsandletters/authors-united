@@ -8,5 +8,4 @@ color: "#ce4b26"
 isbn: 978-1-952616-23-5
 pages: 142
 published: 2018-04-24
-Published: Apr 24, 2018
 ---

@@ -6,8 +6,20 @@ export type Props = {
 };
 
 const { author } = Astro.props as Props;
+const names = author.data.name.split("&");
 ---
 
-<div>
-  <p class="text-lg font-serif font-semibold">{author.data.name}</p>
+<div class="pb-2">
+  <p class="text-lg font-serif font-semibold leading-snug">
+    {
+      names.map((name, index) => {
+        return (
+          <>
+            <span class="inline-block text-nowrap">{name}</span>
+            {index < names.length - 1 && <span class="inline-block">&</span>}
+          </>
+        );
+      })
+    }
+  </p>
 </div>

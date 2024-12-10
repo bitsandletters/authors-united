@@ -26,7 +26,8 @@
     container-name: book;
     container-type: inline-size;
     --book-color: var(--book-color, #ccc);
-    @apply bg-white pl-16 rounded-sm relative;
+
+    @apply bg-white px-6 sm:pr-12 rounded-sm relative;
 
     border-top: 1.5rem solid var(--book-color);
     background-image: linear-gradient(
@@ -41,8 +42,8 @@
     grid-template-columns: 1fr;
     grid-template-rows: minmax(2rem, auto) minmax(6rem, 1fr) auto;
     min-height: 10em;
-    padding-inline-start: 1.5rem;
-    padding-inline-end: 3rem;
+    /* padding-inline-start: 1.5rem;
+    padding-inline-end: 3rem; */
     padding-block: 1.5rem;
 
     h3 {

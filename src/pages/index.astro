@@ -82,7 +82,7 @@ const sortedColors = await getSpectrum();
     <!-- / Fathom -->
   </Head>
   <body class="font-sans bg-zinc-200 text-zinc-900 antialiased">
-    <header class="bg-white flex items-center px-8 py-4">
+    <header class="bg-white max-w-full flex items-center px-8 py-4">
       <h1
         class="text-2xl/none uppercase tracking-wider py-4 font-serif font-semibold mt-12">
         <span
@@ -94,13 +94,13 @@ const sortedColors = await getSpectrum();
       </h1>
     </header>
     <div
-      class="px-8 py-8 grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-8 sm:gap-12">
+      class="px-0 sm:px-8 py-8 grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-8 sm:gap-12">
       <div
         x-data="{ open: false }"
         class="font-serif *:max-w-prose xl:order-last">
         <h3
           @click="open = !open"
-          class="font-display uppercase text-2xl/none font-semibold tracking flex items-center gap-2 border border-zinc-400 p-4 rounded-lg lg:p-0 lg:border-none cursor-pointer lg:cursor-default mb-4"
+          class="font-display uppercase text-2xl/none font-semibold tracking flex items-center gap-2 border border-zinc-400 p-4 sm:rounded-lg lg:p-0 lg:border-none cursor-pointer lg:cursor-default mb-4"
           :class="open ? 'bg-zinc-50 lg:bg-transparent' : ''">
           About this site
           <span
