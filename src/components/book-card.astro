@@ -32,7 +32,9 @@ if (data.number) {
 const numberClasses = twMerge(
   "book-number absolute top-[-1.75rem] right-4 sm:right-2 text-[2rem]/none text-white rounded-full bg-black inline-flex flex-col items-center justify-center w-[1.75em] h-[1.75em]",
   collection === "briefs" &&
-    "rounded-lg text-[1.75rem]/none w-auto h-auto py-1 px-2"
+    "rounded-lg text-[1.75rem]/none w-auto h-auto py-1 px-2",
+  collection === "lost" && 
+    "rounded-none transform rotate-45"
 );
 ---
 
@@ -44,11 +46,15 @@ const numberClasses = twMerge(
   style={`--book-color: ${color}`}>
   <div class:list={numberClasses}>
     {
-      collection === "briefs" && (
+      (collection === "briefs" && (
         <span class="text-xs uppercase font-semibold tracking-wider">
           Briefs
         </span>
-      )
+      )) || (collection === "lost" && (
+        <span class="text-xs uppercase font-semibold tracking-wider transform -rotate-45">
+          Lost
+        </span>
+      ))
     }
     <span class="font-serif font-semibold tracking-tighter text-center -ml-px"
       >{bookNumber}</span
