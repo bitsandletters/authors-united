@@ -16,7 +16,7 @@ const authors = defineCollection({
 const books = defineCollection({
   type: 'content',
   schema: z.object({
-    collection: z.enum(['briefs', 'books']).default('books'),
+    collection: z.enum(['briefs', 'books', 'lost']).default('books'),
     number: z.number().optional(),
     title: z.string(),
     author: reference('authors'),
