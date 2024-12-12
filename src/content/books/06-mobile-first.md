@@ -2,7 +2,7 @@
 collection: books
 number: 6
 title: Mobile First
-url: https://mobilefirst.abookapart.com/
+url: https://mobile-first.abookapart.com/
 author: luke-wroblewski
 color: "#377d6e"
 isbn: 978-1-952616-48-8
