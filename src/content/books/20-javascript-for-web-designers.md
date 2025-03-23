@@ -2,7 +2,7 @@
 collection: books
 number: 20
 title: JavaScript for Web Designers
-url: https://abookdeparts.netlify.app/
+url: https://javascriptforwebdesigners.com/
 author: mat-marquis
 color: "#ae3b32"
 isbn: 978-1-952616-35-8
