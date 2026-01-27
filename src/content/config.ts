@@ -22,6 +22,7 @@ const books = defineCollection({
     author: reference('authors'),
     url: z.string().url(),
     color: z.string().optional(),
+    cover: z.string().optional(),
     isbn: z.string().optional(),
     pages: z.number().optional(),
     published: z.date(),

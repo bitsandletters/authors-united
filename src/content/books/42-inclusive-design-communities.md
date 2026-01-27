@@ -5,6 +5,7 @@ title: Inclusive Design Communities
 author: sameera-kapila
 url: https://samkapila.com/books/
 color: "#4daaba"
+cover: /covers/sk-book.webp
 isbn: 978-1-952616-15-0
 pages: 146
 published: 2022-10-04

@@ -11,7 +11,6 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 import logomark from "../images/authors-together-logomark.svg?raw";
 import starIcon from "../images/olive-starburst-icon@2x.png";
-import bnlLogo from "../images/bnl-logo.svg?raw";
 import openGraphImage from "../images/authors-together-opengraph.png";
 
 const socialImageUrl = new URL(openGraphImage.src, Astro.url);
@@ -76,6 +75,8 @@ const sortedColors = await getSpectrum();
         bottom: 0;
       }
     </style>
+    <!-- Bits&Letters Logo Component -->
+    <script type="module" src="https://unpkg.com/bitsandletters-logo/dist/index.js"></script>
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/script.js" data-site="WXBPBNOP" defer
     ></script>
@@ -145,15 +146,9 @@ const sortedColors = await getSpectrum();
     <footer class="text-zinc-500">
       <div
         class="flex gap-8 justify-center sm:justify-start max-w-[1800px] mx-auto px-8 py-12">
-        <a
-          href="https://bitsandletters.co/?utm_source=authors-together&utm_medium=affiliate&utm_campaign=bnl"
-          class="inline-flex items-center gap-2 group">
-          <span aria-hidden="true" set:html={bnlLogo} class="text-zinc-500" />
-          <span
-            class="group-hover:underline decoration-zinc-400 underline-offset-2"
-            >Site by <b class="font-medium">Bits&amp;Letters</b></span
-          >
-        </a>
+        <bnl-logo source="authors-together" variant="lockup" theme="default">
+          <a href="https://www.bitsandletters.com" target="_blank" rel="noopener noreferrer">Site by Bits&Letters</a>
+        </bnl-logo>
       </div>
     </footer>
   </body>
