@@ -23,9 +23,11 @@
 
 @layer components {
   [data-book] {
+    position: relative;
     container-name: book;
     container-type: inline-size;
     --book-color: var(--book-color, #ccc);
+    --cover-width: clamp(64px, 18cqi, 140px);
 
     @apply bg-white px-6 sm:pr-12 rounded-sm relative;
 
@@ -39,15 +41,65 @@
     box-shadow: var(--shadow-elevation-medium);
     display: grid;
     justify-items: start;
-    grid-template-columns: 1fr;
+    grid-template-columns: var(--cover-width) 1fr;
     grid-template-rows: minmax(2rem, auto) minmax(6rem, 1fr) auto;
+    column-gap: 0.75rem;
     min-height: 10em;
-    /* padding-inline-start: 1.5rem;
-    padding-inline-end: 3rem; */
     padding-block: 1.5rem;
 
+    .book-author {
+      /*text-lg font-serif font-semibold leading-snug*/
+      font-size: clamp(14px, 5cqi, 17px);
+      font-weight: 600;
+      font-family: "Source Serif 4";
+      line-height: 1.08;
+    }
+
+    .nameplate {
+      /*padding-inline-start: calc(var(--cover-width));
+      overflow-x: hidden;*/
+      /*display: contents;
+      & > * {
+        grid-column: 2;
+      }*/
+      grid-row: 1 / span 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     h3 {
-      font-size: clamp(2.5rem, 10cqi, 3.25rem);
+      font-family: "Big Shoulders Display";
+      text-transform: uppercase;
+      text-wrap: balance;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      border-width: 1px 0;
+      border-style: solid;
+      border-color: color-mix(in srgb, currentColor, transparent 50%);
+      padding-block: 0.2em;
+      margin-block-end: 0.5lh;
+      font-size: clamp(2.125rem, 10cqi, 2.65rem);
+
+      /*[font-family:] leading-none text-balance uppercase font-semibold self-start pr-6 border-t border-b pt-2 pb-1 border-current tracking-[-0.5px] [word-spacing:-2px] mb-3*/
+    }
+
+    [data-book-cover] {
+      @apply shadow-md inline-block rounded-lg overflow-hidden aspect-[3/4.6] mb-8;
+
+      left: 0.75rem;
+      top: 0.75rem;
+      grid-row: 1 / span 2;
+
+      @container book (min-width: 500px) {
+        grid-row: 1 / span 3;
+        /*transform: rotate(45deg);*/
+      }
+
+      @media (min-width: 768px) {
+        transform: translateX(-40px);
+        margin-right: -30px;
+      }
     }
   }
 }

@@ -84,7 +84,7 @@ const sortedColors = await getSpectrum();
   </Head>
   <body class="font-sans bg-zinc-200 text-zinc-900 antialiased">
     <header class="bg-white">
-      <div class="max-w-[1800px] mx-auto px-8 py-4 flex items-center">
+      <div class="max-w-[1800px] mx-auto px-8 lg:px-16 py-4 flex items-center">
         <h1
           class="text-2xl/none uppercase tracking-wider py-4 font-serif font-semibold mt-12">
           <span
@@ -92,15 +92,15 @@ const sortedColors = await getSpectrum();
             class="block *:w-full *:h-auto max-w-sm h-auto"
             set:html={logomark}
           />
-          <span class="sr-only">Authors United</span>
+          <span class="sr-only">Authors Together</span>
         </h1>
       </div>
     </header>
     <div
-      class="px-0 sm:px-8 py-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 sm:gap-12 max-w-[1800px] mx-auto">
+      class="px-0 sm:px-8 lg:px-16 py-8 lg:py-16 grid grid-cols-1 gap-8 sm:gap-12 lg:gap-16 gap-y-24 max-w-[1800px] mx-auto">
       <div
         x-data="{ open: false }"
-        class="font-serif *:max-w-prose lg:order-last">
+        class="font-serif @container">
         <h3
           @click="open = !open"
           class="font-display uppercase text-2xl/none font-semibold tracking flex items-center gap-2 border border-zinc-400 p-4 sm:rounded-lg lg:p-0 lg:border-none cursor-pointer lg:cursor-default mb-4"
@@ -115,8 +115,8 @@ const sortedColors = await getSpectrum();
           />
         </h3>
         <div
-          class="flex flex-col gap-4"
-          :class="open ? 'flex px-4 lg:px-0' : 'hidden lg:flex'">
+          class="w-full grid grid-cols-1 @min-[840px]:grid-cols-2 @min-[1260px]:grid-cols-3 gap-8 lg:gap-16 *:max-w-lg"
+          :class="open ? 'flex px-4 lg:px-0' : 'hidden lg:grid'">
           <p>
             In 2024, <a
               href="https://abookapart.com"
@@ -128,28 +128,28 @@ const sortedColors = await getSpectrum();
             this semi-official directory to help you find our books in their new
             homes.
           </p>
-          <p>
-            This site's source code is available on <a
+          <div>
+              <p class="mb-4">
+                  This directory was created by <em>Git for Humans</em> author <a href="https://demaree.me" class="underline decoration-zinc-400 underline-offset-2">David Demaree</a> and the team at <a href="https://www.bitsandletters.com/" class="underline decoration-zinc-400 underline-offset-2">Bits&Letters</a>. The source code is available on <a
               href="https://github.com/bitsandletters/authors-united"
               class="underline decoration-zinc-400 underline-offset-2">GitHub</a
             >.
           </p>
+        <bnl-logo source="authors-together" variant="lockup" theme="default">
+            <a href="https://www.bitsandletters.com" target="_blank" rel="noopener noreferrer">Site by Bits&Letters</a>
+        </bnl-logo>
+          </div>
         </div>
       </div>
       <div class="@container">
         <div
-          class="grid grid-cols-1 @min-[720px]:grid-cols-2 @min-[1020px]:grid-cols-3 gap-8">
+          class="grid grid-cols-1 @min-[840px]:grid-cols-2 @min-[1260px]:grid-cols-3 gap-8 lg:gap-16">
           {books.map((book) => <BookCard book={book} class="flex-1" />)}
         </div>
       </div>
     </div>
     <footer class="text-zinc-500">
-      <div
-        class="flex gap-8 justify-center sm:justify-start max-w-[1800px] mx-auto px-8 py-12">
-        <bnl-logo source="authors-together" variant="lockup" theme="default">
-          <a href="https://www.bitsandletters.com" target="_blank" rel="noopener noreferrer">Site by Bits&Letters</a>
-        </bnl-logo>
-      </div>
+
     </footer>
   </body>
 </html>

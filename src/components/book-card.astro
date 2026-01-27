@@ -16,6 +16,7 @@ const {
   author: _author,
   url,
   color = "#ccc",
+  cover,
   collection = "books",
   ...data
 } = book.data;
@@ -24,49 +25,62 @@ const author = await getEntry("authors", _author.slug);
 import { icon } from "@fortawesome/fontawesome-svg-core";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
-let bookNumber = Number(book.slug.split("-")[0]);
-if (data.number) {
-  bookNumber = data.number;
-}
+let bookNumber = data.number;
+const showBadge = bookNumber !== undefined;
 
 const numberClasses = twMerge(
   "book-number absolute top-[-1.75rem] right-4 sm:right-2 text-[2rem]/none text-white rounded-full bg-black inline-flex flex-col items-center justify-center w-[1.75em] h-[1.75em]",
   collection === "briefs" &&
-    "rounded-lg text-[1.75rem]/none w-auto h-auto py-1 px-2",
-  collection === "lost" && 
-    "rounded-none transform rotate-45"
+    "rounded-lg text-[1.75rem]/none w-auto h-auto py-1 px-2"
 );
 ---
 
 <div
-  class:list={twMerge("*:max-w-[350px]", className)}
+  class:list={twMerge("relative", className)}
   data-book={book.slug}
   data-author={author.slug}
   data-published={book.data.published.toISOString()}
   style={`--book-color: ${color}`}>
-  <div class:list={numberClasses}>
-    {
-      (collection === "briefs" && (
-        <span class="text-xs uppercase font-semibold tracking-wider">
-          Briefs
-        </span>
-      )) || (collection === "lost" && (
-        <span class="text-xs uppercase font-semibold tracking-wider transform -rotate-45">
-          Lost
-        </span>
-      ))
-    }
-    <span class="font-serif font-semibold tracking-tighter text-center -ml-px"
-      >{bookNumber}</span
-    >
-  </div>
+  <a data-book-cover href={url}>
+    {cover ? (
+      <img
+        src={cover}
+        alt={`Cover of ${title}`}
+        class="size-full object-fit"
+        loading="lazy"
+      />
+    ) : (
+      <div data-cover-placeholder>
+          <svg viewBox="0 0 300 460" width="300" height="460" class="size-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="100%" height="100%" style="fill:var(--book-color)"></rect>
+            <rect x="0" y="0" width="100%" height="25%" style="fill:white"></rect>
+            <circle cx="248" cy="116" r="32" fill="black"></circle>
+            {showBadge && bookNumber && <foreignObject x="216" y="84" width="64" height="64">
+                <div style="width:100%;height:100%;text-align:center;">
+                <div style="font-family:'Source Serif 4';font-weight:700;font-size:40px;color:white">{bookNumber}</div>
+                </div>
+            </foreignObject>}
+
+            <foreignObject x="10" y="15%" width="100%" height="85%">
+                <div style="width:90%;padding-inline:8%;padding-block-end:20%;height:100%;display:flex;flex-direction:column;justify-content:end;color:white">
+                <p style="font-family:'Source Serif 4';font-size:20px;margin-bottom:10px;">{author.data.name}</p>
+                    <p style="border-width: 2px 0; border-color: black; border-style: solid;padding-block:12px;font-family: Big Shoulders Display; font-weight:600; font-size: 54px; letter-spacing:-0.03em; line-height:1; word-wrap: break-word; text-transform: uppercase">
+                    {title}
+                    </p>
+                </div>
+            </foreignObject>
+        </svg>
+      </div>
+    )}
+  </a>
+  <div class="nameplate">
   <AuthorCard author={author} />
-  <a href={url}>
-    <h3
-      class="[font-family:Big_Shoulders_Display] text-4xl leading-none text-balance uppercase font-semibold self-start pr-6 border-t border-b pt-2 pb-1 border-current tracking-[-0.5px] [word-spacing:-2px] mb-3">
+  <a class="block w-full" href={url}>
+    <h3>
       {title}
     </h3>
   </a>
+  </div>
   <div>
     {
       url && (

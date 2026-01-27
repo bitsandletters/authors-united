@@ -1,6 +1,5 @@
 ---
-collection: lost
-number: 0
+collection: books
 title: Approachable Open Source
 author: brian-muenzenmeyer
 url: https://approachableopensource.com

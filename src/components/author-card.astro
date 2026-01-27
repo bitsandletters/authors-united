@@ -6,16 +6,16 @@ export type Props = {
 };
 
 const { author } = Astro.props as Props;
-const names = author.data.name.split("&");
+const names = author.data.name.split(/&|,|and/);
 ---
 
 <div class="pb-2">
-  <p class="text-lg font-serif font-semibold leading-snug">
+  <p class="book-author">
     {
       names.map((name, index) => {
         return (
           <>
-            <span class="inline-block text-nowrap">{name}</span>
+            <span class="inline-block">{name}</span>
             {index < names.length - 1 && <span class="inline-block">&</span>}
           </>
         );
