@@ -6,17 +6,26 @@ export type Props = {
 };
 
 const { author } = Astro.props as Props;
-const names = author.data.name.split(/&|,|and/);
+const names = author.data.name.split(/&|,|and/).map(n => n.trim()).filter(n => n.length > 0);
 ---
 
 <div class="pb-2">
   <p class="book-author">
     {
       names.map((name, index) => {
+        const isLast = index === names.length - 1;
+        const isSecondToLast = index === names.length - 2;
+
+        let displayName = name;
+        if (names.length > 2 && !isLast) {
+          displayName = name + ',';
+        }
+
         return (
           <>
-            <span class="inline-block">{name}</span>
-            {index < names.length - 1 && <span class="inline-block">&</span>}
+            <span class="inline-block">{displayName}</span>{!isLast && (
+              <>{names.length === 2 ? ' &' : isSecondToLast ? ' & ' : ' '}</>
+            )}
           </>
         );
       })
